@@ -1,0 +1,70 @@
+[gd_scene load_steps=6 format=3 uid="uid://2ciqyslrf5ok"]
+
+[ext_resource type="Script" uid="uid://c5bmx15sls7r7" path="res://scripts/Boat.gd" id="1_boat"]
+
+[sub_resource type="PrismMesh" id="PrismMesh_xwkqa"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1"]
+albedo_color = Color(0.8, 0.4, 0.2, 1)
+metallic = 0.2
+roughness = 0.7
+
+[sub_resource type="BoxMesh" id="BoxMesh_1"]
+size = Vector3(1.1, 0.15, 0.5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_1"]
+size = Vector3(1, 0.25, 0.45)
+
+[node name="Boat" type="RigidBody3D"]
+mass = 8.0
+gravity_scale = 0.5
+center_of_mass_mode = 1
+center_of_mass = Vector3(0, -0.25, 0)
+linear_damp = 0.3
+angular_damp = 3.0
+script = ExtResource("1_boat")
+
+[node name="Hull" type="Node3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
+
+[node name="HullBottom" type="MeshInstance3D" parent="Hull"]
+transform = Transform3D(0.00111145, -1.7887e-08, 2.2, 1.50241e-07, -0.205, -1.9233e-07, 0.994999, 3.09741e-08, -0.00245748, -3.8147e-06, 0.0404371, -0.000488281)
+mesh = SubResource("PrismMesh_xwkqa")
+surface_material_override/0 = SubResource("StandardMaterial3D_1")
+
+[node name="HullTop" type="MeshInstance3D" parent="Hull"]
+transform = Transform3D(2.01461, 0, 0, 0, 5.82157, 0, 0, 0, 2.01141, 0.00312042, 0.579124, 0)
+mesh = SubResource("BoxMesh_1")
+surface_material_override/0 = SubResource("StandardMaterial3D_1")
+
+[node name="HullTop2" type="MeshInstance3D" parent="Hull"]
+transform = Transform3D(0.675398, 0, 0, 0, 1.17066, 0, 0, 0, 0.787119, 0.00458527, 1.10174, -0.00146484)
+mesh = SubResource("BoxMesh_1")
+surface_material_override/0 = SubResource("StandardMaterial3D_1")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_1")
+
+[node name="BuoyancyProbe1" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, -0.3, 0)
+
+[node name="BuoyancyProbe2" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.75, -0.2, 0.5)
+
+[node name="BuoyancyProbe3" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.75, -0.2, -0.5)
+
+[node name="BuoyancyProbe4" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.15, 0.8)
+
+[node name="BuoyancyProbe5" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.15, -0.8)
+
+[node name="BuoyancyProbe6" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.75, -0.2, 0.5)
+
+[node name="BuoyancyProbe7" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.75, -0.2, -0.5)
+
+[node name="BuoyancyProbe8" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, -0.3, 0)

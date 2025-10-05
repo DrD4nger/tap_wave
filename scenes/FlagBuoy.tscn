@@ -1,0 +1,80 @@
+[gd_scene load_steps=11 format=3 uid="uid://cqwvtadqwkfa5"]
+
+[ext_resource type="Script" uid="uid://cpc2i2tbmeo6p" path="res://scripts/Buoy.gd" id="1_buoy"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_1"]
+radius = 1.0
+height = 2.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_orange"]
+albedo_color = Color(1, 0.5, 0.1, 1)
+metallic = 0.1
+roughness = 0.8
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_1"]
+top_radius = 0.15
+bottom_radius = 0.15
+height = 1.5
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_metal"]
+albedo_color = Color(0.7, 0.7, 0.7, 1)
+metallic = 0.8
+roughness = 0.2
+
+[sub_resource type="SphereMesh" id="SphereMesh_light"]
+radius = 0.08
+height = 0.16
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_light"]
+albedo_color = Color(1, 0.2, 0.2, 1)
+emission_enabled = true
+emission = Color(1, 0.2, 0.2, 1)
+emission_energy_multiplier = 2.0
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_flag"]
+size = Vector2(0.8, 0.5)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_flag"]
+shading_mode = 0
+albedo_color = Color(1, 1, 0, 1)
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_1"]
+radius = 0.35
+
+[node name="FlagBuoy" type="RigidBody3D"]
+mass = 3.0
+gravity_scale = 0.8
+center_of_mass_mode = 1
+center_of_mass = Vector3(0, -0.3, 0)
+linear_damp = 5.0
+angular_damp = 8.0
+script = ExtResource("1_buoy")
+
+[node name="FloatBase" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.333333, 0, 0, 0, 0.333333, 0, 0, 0, 0.333333, 0, 0.210632, 0)
+mesh = SubResource("SphereMesh_1")
+surface_material_override/0 = SubResource("StandardMaterial3D_orange")
+
+[node name="Tower" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.666667, 0, 0, 0, 0.666667, 0, 0, 0, 0.666667, 0, 1.01729, 0)
+mesh = SubResource("CylinderMesh_1")
+surface_material_override/0 = SubResource("StandardMaterial3D_metal")
+
+[node name="Light" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.56685, 0)
+mesh = SubResource("SphereMesh_light")
+surface_material_override/0 = SubResource("StandardMaterial3D_light")
+
+[node name="Flag" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.549861, 0, 0, 0, 0.0167716, -0.536994, 0, 1.00824, 0.00893264, 0.293884, 1.34202, 0)
+mesh = SubResource("PlaneMesh_flag")
+surface_material_override/0 = SubResource("StandardMaterial3D_flag")
+
+[node name="FlagBack" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.524489, 0, 0, 0, 0.0167731, -0.552447, 0, -1.00833, -0.00918969, 0.303489, 1.3433, 0)
+mesh = SubResource("PlaneMesh_flag")
+surface_material_override/0 = SubResource("StandardMaterial3D_flag")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.852539, 0)
+shape = SubResource("CapsuleShape3D_1")

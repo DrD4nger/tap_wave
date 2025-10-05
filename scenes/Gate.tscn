@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://ftfwuylmyqae"]
+
+[ext_resource type="PackedScene" uid="uid://cqwvtadqwkfa5" path="res://scenes/FlagBuoy.tscn" id="1_flag_buoy"]
+[ext_resource type="Script" uid="uid://yld58sw84cbf" path="res://scripts/Gate.gd" id="2_gate"]
+
+[node name="Gate" type="Node3D"]
+script = ExtResource("2_gate")
+
+[node name="LeftBuoy" parent="." instance=ExtResource("1_flag_buoy")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -1, 0, 0)
+
+[node name="RightBuoy" parent="." instance=ExtResource("1_flag_buoy")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 1, 0, 0)

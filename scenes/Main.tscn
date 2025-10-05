@@ -1,0 +1,84 @@
+[gd_scene load_steps=9 format=3 uid="uid://b4ncjcklf8gv2"]
+
+[ext_resource type="Shader" uid="uid://da6hljlxtokkh" path="res://shaders/water.gdshader" id="1_water"]
+[ext_resource type="Script" uid="uid://cbloku307rgws" path="res://scripts/WaterController.gd" id="2_controller"]
+[ext_resource type="PackedScene" uid="uid://2ciqyslrf5ok" path="res://scenes/Boat.tscn" id="3_boat"]
+[ext_resource type="PackedScene" uid="uid://ftfwuylmyqae" path="res://scenes/Gate.tscn" id="5_gate"]
+[ext_resource type="PackedScene" uid="uid://joyhoqsqpfwo" path="res://scenes/Dock.tscn" id="6_dock"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_1"]
+size = Vector2(67.5, 67.5)
+subdivide_width = 150
+subdivide_depth = 150
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1"]
+render_priority = 0
+shader = ExtResource("1_water")
+shader_parameter/wave_speed = 0.4
+shader_parameter/wave_amplitude = 0.2
+shader_parameter/wave_length = 4.0
+shader_parameter/wave_steepness = 0.5
+shader_parameter/wave_direction = Vector2(1, 0)
+shader_parameter/wave2_amplitude = 0.15
+shader_parameter/wave2_length = 2.5
+shader_parameter/wave2_direction = Vector2(0.3, 1)
+shader_parameter/wave2_speed = 0.6
+shader_parameter/swell_amplitude = 0.1
+shader_parameter/swell_length = 8.0
+shader_parameter/swell_speed = 0.2
+shader_parameter/ripple_amplitude = 0.7
+shader_parameter/ripple_speed = 4.0
+shader_parameter/ripple_decay = 1.0
+shader_parameter/ripple_wavelength = 3.5
+shader_parameter/ripple_positions = PackedFloat32Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+shader_parameter/ripple_times = PackedFloat32Array(-999, -999, -999, -999, -999, -999, -999, -999, -999, -999)
+shader_parameter/water_color = Color(0.1, 0.3, 0.5, 0.9)
+shader_parameter/foam_color = Color(0.9, 0.95, 1, 1)
+shader_parameter/deep_color = Color(0.02, 0.1, 0.2, 1)
+shader_parameter/foam_threshold = 0.7
+shader_parameter/metallic = 0.1
+shader_parameter/roughness = 0.3
+shader_parameter/specular_strength = 1.0
+
+[sub_resource type="Environment" id="Environment_1"]
+background_mode = 1
+background_color = Color(0.8, 0.9, 1, 1)
+ambient_light_source = 2
+ambient_light_color = Color(0.7, 0.8, 0.9, 1)
+ambient_light_energy = 0.5
+
+[node name="Main" type="Node3D"]
+script = ExtResource("2_controller")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(0.707107, -0.5, 0.5, 0, 0.707107, 0.707107, -0.707107, -0.5, 0.5, 10, 12.6798, 10)
+projection = 1
+fov = 45.0
+size = 32.0
+
+[node name="Water" type="Node3D" parent="."]
+
+[node name="WaterMesh" type="MeshInstance3D" parent="Water"]
+mesh = SubResource("PlaneMesh_1")
+surface_material_override/0 = SubResource("ShaderMaterial_1")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.707107, -0.612372, 0.353554, 0, 0.5, 0.866025, -0.707107, -0.612372, 0.353554, -0.671812, 7.97534, -13.5199)
+light_color = Color(0.867578, 0.803633, 0.599842, 1)
+light_energy = 2.761
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_1")
+
+[node name="Boat" parent="." instance=ExtResource("3_boat")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.864, 0.349487, -4.6134)
+
+[node name="Gate" parent="." instance=ExtResource("5_gate")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.04895, 0, -0.0178223)
+
+[node name="Gate2" parent="." instance=ExtResource("5_gate")]
+transform = Transform3D(0.290769, 0, 0.956793, 0, 1, 0, -0.956793, 0, 0.290769, -6.23706, 0, 2.14624)
+
+[node name="Dock" parent="." instance=ExtResource("6_dock")]
+transform = Transform3D(0.952257, 0, -0.305296, 0, 1, 0, 0.305296, 0, 0.952257, 5.01349, -0.734253, 17.4419)
