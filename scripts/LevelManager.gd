@@ -38,12 +38,14 @@
 extends Node
 
 signal all_gates_completed
+signal level_completed
 
 var gates = []
 var dock = null
 
 func _ready():
 	set_process(false)
+	level_completed.connect(_on_level_completed)
 
 func register_gate(gate):
 	if gate not in gates:
@@ -79,3 +81,6 @@ func reset_level():
 	if dock:
 		dock.is_active = false
 		dock.update_visual_state()
+		
+func _on_level_completed():
+	get_tree().change_scene_to_file("res://scenes/LevelComplete.tscn")
