@@ -45,8 +45,6 @@
 
 extends Node3D
 
-signal level_completed
-
 @onready var activation_light = $ActivationLight
 @onready var area = $Area3D
 @onready var platform = $Platform
@@ -121,7 +119,7 @@ func _on_boat_exited(body):
 
 func complete_level():
 	print("Level Completed!")
-	level_completed.emit()
+	LevelManager.level_completed.emit()
 	
 	if activation_light:
 		var tween = create_tween()
